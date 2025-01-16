@@ -1,22 +1,19 @@
 import sys
 import random
 
+from PyQt6 import uic  # Импортируем uic
+from PyQt6.QtWidgets import QApplication, QMainWindow
+
 from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtWidgets import QWidget, QApplication, QPushButton
 
 
-class Example(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
-
-    def initUI(self):
-        self.setGeometry(300, 300, 200, 200)
-        self.setWindowTitle('Git и желтые окружности')
-        self.btn = QPushButton('Рисовать', self)
-        self.btn.move(65, 150)
+        uic.loadUi('MW.ui', self)  # Загружаем дизайн
         self.do_paint = False
-        self.btn.clicked.connect(self.paint)
+        self.pushButton.clicked.connect(self.paint)
 
     def paintEvent(self, event):
         if self.do_paint:
@@ -39,6 +36,6 @@ class Example(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = MainWindow()
     ex.show()
     sys.exit(app.exec())
